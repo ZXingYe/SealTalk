@@ -23,12 +23,12 @@ import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
+import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.FileMessage;
 import io.rong.message.ImageMessage;
-import io.rong.message.LocationMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
 

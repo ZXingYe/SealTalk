@@ -5,7 +5,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.yzx.chat.BuildConfig;
 import com.yzx.chat.configure.AppApplication;
 
 import java.io.PrintWriter;
@@ -32,7 +31,7 @@ public class CrashHandler {
             String error = collectErrorInfoToLocal(e);
             Log.e(TAG, error);
 //            FileUtil.saveStringToFile(error, DirectoryHelper.getPublicLogPath(), DateFormatUtil.millisTo_yyyy_MM_dd_HH_mm_ss(System.currentTimeMillis()) + ".txt");
-            if (BuildConfig.isDebug) {
+            if (true) {
                 new Thread() {
                     @Override
                     public void run() {

@@ -244,7 +244,7 @@ public abstract class BaseCompatActivity<P extends BasePresenter> extends AppCom
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     TypedValue value = new TypedValue();
-                    getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
+                    getTheme().resolveAttribute(androidx.appcompat.R.attr.colorPrimary, value, true);
                     window.setStatusBarColor(value.data);
                 }
                 break;

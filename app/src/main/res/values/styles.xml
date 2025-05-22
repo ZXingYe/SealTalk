@@ -61,7 +61,7 @@
     </style>
 
     <style name="TextViewStyle" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">?android:attr/android:textColorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">

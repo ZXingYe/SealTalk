@@ -102,11 +102,8 @@ public class AppClient {
 
     private void initIM() {
         RongIMClient.init(mAppContext);
-        try {
-            RongIMClient.registerMessageType(SightMessage.class);
-            RongIMClient.registerMessageType(ContactNotificationMessageEx.class);
-        } catch (AnnotationNotFoundException ignored) {
-        }
+        RongIMClient.registerMessageType(SightMessage.class);
+        RongIMClient.registerMessageType(ContactNotificationMessageEx.class);
         RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
             @Override
             public boolean onReceived(Message message, int remainder) {
@@ -146,14 +143,14 @@ public class AppClient {
                         }
                         break;
                     case NETWORK_UNAVAILABLE:
-                    case DISCONNECTED:
+                    case UNCONNECTED:
                         for (OnConnectionStateChangeListener listener : mOnConnectionStateChangeListenerList) {
                             listener.onDisconnected();
                         }
                         break;
                     case KICKED_OFFLINE_BY_OTHER_CLIENT:
                     case TOKEN_INCORRECT:
-                    case SERVER_INVALID:
+                    case USER_LOGOUT:
                     case CONN_USER_BLOCKED:
                         mLoginExpiredListener.onLoginExpired();
                         break;
@@ -217,10 +214,6 @@ public class AppClient {
                         }
                         init(result.getToken(), result.getUserProfile());
                         RongIMClient.connect(result.getToken(), new RongIMClient.ConnectCallback() {
-                            @Override
-                            public void onTokenIncorrect() {
-                                onFailure(ResponseHandler.ERROR_CODE_TOKEN_INCORRECT, ResourcesHelper.getString(R.string.Error_Client));
-                            }
 
                             @Override
                             public void onSuccess(String s) {
@@ -229,12 +222,17 @@ public class AppClient {
                             }
 
                             @Override
-                            public void onError(RongIMClient.ErrorCode errorCode) {
-                                String error = errorCode.getMessage();
+                            public void onError(RongIMClient.ConnectionErrorCode errorCode) {
+                                String error = errorCode.toString();
                                 if (TextUtils.isEmpty(error)) {
                                     error = ResourcesHelper.getString(R.string.Error_Server3);
                                 }
                                 onFailure(errorCode.getValue(),error);
+                            }
+
+                            @Override
+                            public void onDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+
                             }
                         });
 
@@ -272,12 +270,6 @@ public class AppClient {
         init(token, UserManager.getUserInfoFromDB(userID, mDBHelper.getReadWriteHelper()));
 
         RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                destroy();
-                mLoginLock.release();
-                CallbackUtil.callFailure(ResponseHandler.ERROR_CODE_TOKEN_INCORRECT, ResourcesHelper.getString(R.string.Error_Server8), callback);
-            }
 
             @Override
             public void onSuccess(String s) {
@@ -286,11 +278,17 @@ public class AppClient {
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
+            public void onError(RongIMClient.ConnectionErrorCode e) {
                 destroy();
                 mLoginLock.release();
-                CallbackUtil.callFailure(ResponseHandler.ERROR_CODE_UNKNOWN, errorCode.getMessage(), callback);
+                CallbackUtil.callFailure(ResponseHandler.ERROR_CODE_UNKNOWN, e.toString(), callback);
             }
+
+            @Override
+            public void onDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+
+            }
+
         });
 
     }

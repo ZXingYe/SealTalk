@@ -1,80 +1,55 @@
 apply plugin: 'com.android.application'
 
-def config = rootProject.ext
-
 android {
-    compileSdkVersion config.versions.compileSdkVersion
-    buildToolsVersion config.versions.buildToolsVersion
-    defaultConfig {
-        applicationId "com.yzx.chat"
-        minSdkVersion config.versions.minSdkVersion
-        targetSdkVersion config.versions.targetSdkVersion
-        versionCode config.versions.versionCode
-        versionName config.versions.versionName
-        ndk {
-            abiFilters "arm64-v8a", "x86"
-        }
-    }
+    namespace 'com.yzx.chat'
+    compileSdk 35
 
-    signingConfigs {
-        defaultConfig {
-            storeFile file('../keystore.jks')
-            storePassword 'yezhixing123'
-            keyAlias 'yezhixing'
-            keyPassword 'yezhixing123'
-        }
+    defaultConfig {
+        applicationId "io.zxingye.library.surfacebridge"
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        debug {
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.defaultConfig
-            buildConfigField 'boolean', 'isDebug', 'true'
-
-        }
         release {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.defaultConfig
-            buildConfigField 'boolean', 'isDebug', 'false'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    lintOptions {
-        disable 'GoogleAppIndexingWarning'
-        checkReleaseBuilds false
-//        abortOnError false
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':IMLib')
 
-    implementation config.deps.androidx.constraintLayout
-    implementation config.deps.androidx.appcompat
-    implementation config.deps.androidx.design
-    implementation config.deps.androidx.emoji
-    implementation config.deps.androidx.emojibBundled
-    implementation config.deps.ext.gson
-    implementation config.deps.ext.autosize
-    implementation config.deps.ext.materialDialogs
-    implementation config.deps.ext.zxing
-    implementation config.deps.ext.map3D
-    implementation config.deps.ext.mapSearch
-    implementation config.deps.ext.glide
-    implementation config.deps.ext.leakcanaryAndroid
-    implementation config.deps.ext.leakcanaryFragment
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'androidx.emoji:emoji:1.1.0'
+    implementation 'androidx.emoji:emoji-bundled:1.1.0'
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    annotationProcessor config.deps.annotation.glide
-    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.google.zxing:core:3.3.3'
+
+
+    implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.amap.api:3dmap-location-search:latest.integration'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+//    implementation 'me.jessyan:autosize:1.1.2'
+
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    annotationProcessor 'androidx.annotation:annotation:1.9.1'
+
+    implementation 'cn.rongcloud.sdk:im_lib:5.7.5'
 
 }

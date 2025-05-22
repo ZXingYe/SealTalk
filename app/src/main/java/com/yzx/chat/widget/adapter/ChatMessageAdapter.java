@@ -47,13 +47,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.ContactNotificationMessage;
 import io.rong.message.FileMessage;
 import io.rong.message.GroupNotificationMessage;
 import io.rong.message.ImageMessage;
-import io.rong.message.LocationMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
 

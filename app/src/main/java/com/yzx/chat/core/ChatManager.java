@@ -18,12 +18,12 @@ import java.util.concurrent.CountDownLatch;
 import androidx.annotation.Nullable;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.message.FileMessage;
 import io.rong.message.ImageMessage;
-import io.rong.message.LocationMessage;
 import io.rong.message.MediaMessageContent;
 import io.rong.message.TextMessage;
 

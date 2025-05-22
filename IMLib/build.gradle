@@ -1,13 +1,14 @@
 apply plugin: 'com.android.library'
 
+def config = rootProject.ext
 android {
-    compileSdkVersion 26
+    compileSdk config.versions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 2019060614
-        versionName "2.9.18 Stable"
+        minSdk config.versions.minSdkVersion
+        targetSdk config.versions.targetSdkVersion
+        versionCode config.versions.versionCode
+        versionName config.versions.versionName
     }
 
     sourceSets {
@@ -21,13 +22,5 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-compat:26.0.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
-}
 
-repositories {
-    maven {
-        url 'https://maven.google.com/'
-        name 'Google'
-    }
 }
