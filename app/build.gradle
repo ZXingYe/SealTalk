@@ -16,14 +16,6 @@ android {
         }
     }
 
-    signingConfigs {
-        defaultConfig {
-            storeFile file('../keystore.jks')
-            storePassword 'yezhixing123'
-            keyAlias 'yezhixing'
-            keyPassword 'yezhixing123'
-        }
-    }
 
     buildTypes {
         debug {
